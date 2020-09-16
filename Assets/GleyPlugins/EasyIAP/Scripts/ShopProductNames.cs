@@ -1,3 +1,4 @@
 public enum ShopProductNames
 {
+PackofCubes,
 }

@@ -31,7 +31,6 @@ namespace JFoundation
         void Awake()
         {
             debugger = DependencyLoader.LoadGameObject<Debugger>("Debugger", this, gameObject) as Debugger;
-            IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
         }
 
         public void SetDependencies(IapControllerDelegate iapDelegate)
@@ -42,7 +41,7 @@ namespace JFoundation
         // Start is called before the first frame update
         void Start()
         {
-
+            IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
         }
 
         // Update is called once per frame

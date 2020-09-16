@@ -77,6 +77,9 @@ public class SampleGameController : MonoBehaviour, IapControllerDelegate
         // Should be called automatically on startup
 
         this.products = products;
+
+        string firstProduct = string.Format("First product is:{0} for {1}", products[0].productName, products[0].localizedPriceString);
+        debugger.Log(firstProduct);
     }
 
     void IapControllerDelegate.DidBuyProduct(StoreProduct product, bool isSuccessful, string errorMessage)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d34cf01d34acc458da5ffdab5e6238, type: 3}
   m_Name: IAPData
   m_EditorClassIdentifier: 
-  debug: 1
+  debug: 0
   useReceiptValidation: 0
   usePlaymaker: 0
   useBolt: 0
@@ -20,4 +20,13 @@ MonoBehaviour:
   useForGooglePlay: 1
   useForAmazon: 0
   useForIos: 1
-  shopProducts: []
+  shopProducts:
+  - productName: PackofCubes
+    productType: 1
+    idGooglePlay: cube_pack_01
+    idAmazon: 
+    idIOS: cube_pack_01
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
