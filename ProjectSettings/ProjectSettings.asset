@@ -7,12 +7,12 @@ PlayerSettings:
   productGUID: 313900081120545169dac592927a5de4
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
-  AndroidEnableSustainedPerformanceMode: 0
+  AndroidEnableSustainedPerformanceMode: 1
   defaultScreenOrientation: 3
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: workhorse bytes
   productName: Project09-iap
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -250,14 +250,14 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: /Users/jenchen/Documents/Simons_files/unity_projects/Android-keystore/user.keystore
-  AndroidKeyaliasName: workhorsebytes
+  AndroidKeyaliasName: project09-iap
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 1
+  androidUseCustomKeystore: 0
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -684,6 +684,7 @@ PlayerSettings:
     7: GleyIAPGooglePlay
   platformArchitecture: {}
   scriptingBackend:
+    Android: 0
     Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}

@@ -1,15 +1,19 @@
+using System;
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JFoundation;
 
-public class SampleGameController : MonoBehaviour, IapControllerDelegate
+public class IapGameController : MonoBehaviour, IapControllerDelegate
 {
 
     IapController iapController;
     Debugger debugger;
-
     public List<StoreProduct> products;
+
+    public event Action<StoreProduct, bool, string> RestoredProductEvent;
+    public event Action<StoreProduct, bool, string> BoughtProductEvent;
+    public event Action<List<StoreProduct>, bool, string> ValidatedProductsEvent;
 
     void Awake()
     {
@@ -27,6 +31,7 @@ public class SampleGameController : MonoBehaviour, IapControllerDelegate
     // Start is called before the first frame update
     void Start()
     {
+        ValidateProducts();
     }
 
     // Update is called once per frame
@@ -45,6 +50,12 @@ public class SampleGameController : MonoBehaviour, IapControllerDelegate
             string productName = product.productName;
             iapController.BuyProduct(productName);
         }
+    }
+
+    // Retrieve products from online first time
+    public void ValidateProducts()
+    {
+        iapController.ValidateProducts();
     }
 
     public void RestoreAllPurchases()
@@ -80,16 +91,26 @@ public class SampleGameController : MonoBehaviour, IapControllerDelegate
 
         string firstProduct = string.Format("First product is:{0} for {1}", products[0].productName, products[0].localizedPriceString);
         debugger.Log(firstProduct);
+
+        if (ValidatedProductsEvent != null)
+        {
+            ValidatedProductsEvent(this.products, isSuccessful, errorMessage);
+        }
     }
 
     void IapControllerDelegate.DidBuyProduct(StoreProduct product, bool isSuccessful, string errorMessage)
     {
-        debugger.Log("Bought a product!");
+        debugger.Log("Bought a product!", this, gameObject);
+
+        if (BoughtProductEvent != null)
+        {
+            BoughtProductEvent(product, isSuccessful, errorMessage);
+        }
     }
 
     void IapControllerDelegate.DidRestoreProduct(StoreProduct product, bool isSuccessful, string errorMessage)
     {
-        // Find Look for the
+        // Products must be initially populated (validated) before it can be restored.
         if (HasProducts())
         {
             for (int i = 0; i < products.Count; i++)
@@ -101,7 +122,7 @@ public class SampleGameController : MonoBehaviour, IapControllerDelegate
                     // Replace it
                     products[i] = product;
 
-                    debugger.Log("Restored a purchase: " + product.productName);
+                    debugger.Log("Restored a purchase: " + product.productName, this, gameObject);
                     break;
                 }
             }
@@ -111,9 +132,13 @@ public class SampleGameController : MonoBehaviour, IapControllerDelegate
             // If it does not exist, add it
             products.Add(product);
 
-            debugger.Log("Restored a purchase that was not validated: " + product.productName);
+            debugger.Log("Restored a purchase that was not validated: " + product.productName, this, gameObject);
         }
 
+        if (RestoredProductEvent != null)
+        {
+            RestoredProductEvent(product, isSuccessful, errorMessage);
+        }
     }
 
     // ------------ End of IAP Controller Delegate Callbacks ------------

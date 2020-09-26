@@ -41,7 +41,7 @@ namespace JFoundation
         // Start is called before the first frame update
         void Start()
         {
-            IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
+
         }
 
         // Update is called once per frame
@@ -51,6 +51,11 @@ namespace JFoundation
         }
 
         // ----------------- Public Methods ------------------
+
+        public void ValidateProducts()
+        {
+            IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
+        }
 
         public void BuyProduct(string productName)
         {
